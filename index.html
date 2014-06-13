@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="marquee.min.js"></script>
+<style>
+    * { margin:0; padding:0; }
+    li { list-style:none; }
+    a { color:#666; text-decoration:none; }
+    a:hover { text-decoration: underline; }
+    .main { width:800px; margin:20px auto; }
+    .demo1 { width:400px; height:30px; margin-bottom:20px; border:1px solid #ddd; overflow:hidden; line-height:30px; }
+    .demo1 .title { width:80px; float:left; background:#efefef; text-align:center; }
+    .demo1 .wrap { width:320px; height:30px; float:left; overflow:hidden; position:relative; }
+    .demo1 .wrap div { position:absolute; top:0; left:0; }
+    .demo1 #demo2 a { display:block; padding-left:10px; font-size:12px; overflow:hidden; }
+</style>
+</head>
+<body>
+    <div class="main">
+        <!-- 左右滚动 -->
+        <div class="demo1">
+            <div class="title">滚动新闻</div>
+            <div class="wrap">
+                <div id="demo1">
+                    <a href="http://p.gmw.cn/article-2328-1.html"  target="_blank">南京：世界最大最长3D地画恢弘亮相 </a><span>|</span>
+                    <a href="http://www.bt.chinanews.com/News/jisheng/201406/366249.html" target="_blank">三十团“新家庭文化书屋”发挥作用宣传计生知识</a><span>|</span>
+                    <a href="http://news.qtv.com.cn/system/2014/06/12/011484225.shtml" target="_blank">潘石屹被指打深航女员工 回应：完全是胡说八道</a><span>|</span>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                new Marquee({
+                    elem: document.getElementById("demo1"),
+                    autoPlay: true,
+                    step:2,
+                    stepInterval: 0,
+                    interval: 50,
+                    dir: 'left'
+                });
+            })();
+        </script>
+
+        <!-- 上下滚动 -->
+        <div class="demo1">
+            <div class="title">滚动新闻</div>
+            <div class="wrap">
+                <div id="demo2">
+                    <a href="http://p.gmw.cn/article-2328-1.html"  target="_blank">1. 南京：世界最大最长3D地画恢弘亮相 </a>
+                    <a href="http://www.bt.chinanews.com/News/jisheng/201406/366249.html" target="_blank">2. 三十团“新家庭文化书屋”发挥作用宣传计生知识</a>
+                    <a href="http://news.qtv.com.cn/system/2014/06/12/011484225.shtml" target="_blank">3. 潘石屹被指打深航女员工 回应：完全是胡说八道</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                new Marquee({
+                    elem: document.getElementById("demo2"),
+                    autoPlay: true,
+                    step:30,
+                    interval: 1000,
+                    dir: 'up'
+                });
+            })();
+        </script>
+
+        <!-- 图片展示滚动带控制按钮 -->
+        <style>
+            .demo2 { width:500px; height:51px; overflow:hidden; position:relative; margin-bottom:20px; }
+            .demo2 ul { position:absolute; top:0; left:0; }
+            .demo2 li { width:97px; padding-right:3px; float:left; }
+            .demo2 .prevnext { position:absolute; top:10px; width:30px; height:30px; line-height: 30px; text-align: center; background:#333; background:rgba(0,0,0,0.5); color:#fff; border-radius: 5px; cursor:pointer; }
+            .demo2 .prev { left:4px; }
+            .demo2 .next { right:7px; }
+        </style>
+        <div class='demo2'>
+            <ul id="demo3">
+                <li><img src="img/01.png" alt=""></li>
+                <li><img src="img/02.png" alt=""></li>
+                <li><img src="img/03.png" alt=""></li>
+                <li><img src="img/04.png" alt=""></li>
+                <li><img src="img/05.png" alt=""></li>
+                <li><img src="img/06.png" alt=""></li>
+            </ul>
+            <div class="prevnext prev">&lt;</div>
+            <div class="prevnext next">&gt;</div>
+        </div>
+        <script>
+            (function() {
+
+                var oUl = document.getElementById("demo3"),
+                    aPrevNext = oUl.parentNode.getElementsByTagName("div");
+
+                var m1 = new Marquee({
+                    elem: oUl,
+                    autoPlay: true,
+                    step:100,
+                    interval: 1000,
+                    dir: 'right'
+                });
+
+                aPrevNext[0].onclick = function() {
+                    m1.changeDir('right');
+                }
+                aPrevNext[1].onclick = function() {
+                    m1.changeDir('left');
+                }
+
+            })();
+            
+        </script>
+
+    </div>
+</body>
+</html>
