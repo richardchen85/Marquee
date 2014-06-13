@@ -3,6 +3,18 @@ Marquee
 
 原生JavaScript实现任意方向的无缝滚动
 
+使用方法
+================
+
+new Marquee({
+    elem: document.getElementById("demo1"),
+    autoPlay: true,
+    step:2,
+    stepInterval: 0,
+    interval: 50,
+    dir: 'left'
+});
+
 参数
 ================
 
