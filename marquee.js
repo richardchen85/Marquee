@@ -23,7 +23,7 @@
         // 滚动方向，up、down、left、right，默认为"left"
         this.dir = "left";
 
-        // 是否自动滚动，默认为false
+        // 是否自动滚动，默认为true
         this.autoPlay = true;
 
         // 是否在鼠标滑过时暂停滚动，默认为true
