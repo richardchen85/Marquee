@@ -15,7 +15,8 @@
     .demo1 { width:400px; height:30px; margin-bottom:20px; border:1px solid #ddd; overflow:hidden; line-height:30px; }
     .demo1 .title { width:80px; float:left; background:#efefef; text-align:center; }
     .demo1 .wrap { width:320px; height:30px; float:left; overflow:hidden; position:relative; }
-    .demo1 .wrap div { position:absolute; top:0; left:0; }
+    .demo1 .wrap ul, .demo1 #demo2 { position:absolute; top:0; left:0; }
+    .demo1 .wrap li { width:400px; height:30px; float:left; overflow:hidden; }
     .demo1 #demo2 a { display:block; padding-left:10px; font-size:12px; overflow:hidden; }
 </style>
 </head>
@@ -25,11 +26,17 @@
         <div class="demo1">
             <div class="title">滚动新闻</div>
             <div class="wrap">
-                <div id="demo1">
+                <ul id="demo1">
+                    <li>
                     <a href="http://p.gmw.cn/article-2328-1.html"  target="_blank">南京：世界最大最长3D地画恢弘亮相 </a><span>|</span>
+                    </li>
+                    <li>
                     <a href="http://www.bt.chinanews.com/News/jisheng/201406/366249.html" target="_blank">三十团“新家庭文化书屋”发挥作用宣传计生知识</a><span>|</span>
+                    </li>
+                    <li>
                     <a href="http://news.qtv.com.cn/system/2014/06/12/011484225.shtml" target="_blank">潘石屹被指打深航女员工 回应：完全是胡说八道</a><span>|</span>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <script>
@@ -37,7 +44,7 @@
                 new Marquee({
                     elem: document.getElementById("demo1"),
                     autoPlay: true,
-                    step:2,
+                    step:3,
                     stepInterval: 0,
                     interval: 50,
                     dir: 'left'
@@ -97,7 +104,7 @@
 
                 var m1 = new Marquee({
                     elem: oUl,
-                    autoPlay: true,
+                    autoPlay: false,
                     step:100,
                     interval: 1000,
                     dir: 'right'

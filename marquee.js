@@ -81,9 +81,17 @@
                 this.elem.style.left = -this.elem.offsetWidth / 2 + 'px';
             }
 
+            if(this.dir == 'left' && this.elem.offsetLeft == -this.elem.offsetWidth / 2) {
+                this.elem.style.left = 0;
+            }
+
             if(this.dir == 'down' && this.elem.offsetTop == 0) {
                 this.elem.style.top = -this.elem.offsetHeight / 2 + 'px';
             } 
+
+            if(this.dir == 'up' && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
+                this.elem.style.top = 0;
+            }
         },
 
         // 绑定控制元素的事件
@@ -98,7 +106,9 @@
 
             // 鼠标移出父级元素时重新开始滚动
             this.bind(this.elem.parentNode, "mouseout", function () {
-                _this.startScroll();
+                if( _this.autoPlay ) {
+                    _this.startScroll();
+                }
                 _this.pausing = false;
             });
         },
@@ -128,6 +138,10 @@
 
             if (this.stepInterval == 0) {
                 // 滚动效果执行时间为0时，进入无缝滚动模式
+                if(elemSize - Math.abs(this.elem[offset]) < Math.abs(step)) {
+                    step = step / Math.abs(step) * (elemSize - Math.abs(this.elem[offset]));
+                }
+                target = this.elem[offset] + step;
                 target = this.fixTarget(step, this.elem[offset] + step, elemSize);
                 this.elem.style[style] = target + "px";
 
@@ -152,7 +166,8 @@
                     if(step == 0 ) {
                         clearInterval(_this.timerStep);
                         _this.timerStep = null;
-                        if(_this.autoPlay) {
+
+                        if( _this.autoPlay && !_this.pausing ) {
                             _this.startScroll();
                         }
                     }
@@ -162,31 +177,28 @@
 
         // 修正超出边界的滚动
         fixTarget: function (dir, target, max) {
+            // left or up, 当元素offset=最大滚动值时将offset变为0
             if( dir < 0 && Math.abs(target) >= max ) {
                 return 0;
-            } else if( dir > 0 && target >= 0 ) {
-                return -max;
-            } else {
-                return target;
             }
+
+            // right or down，当元素offset=0时将offset变为最大滚动值
+            if( dir > 0 && target >= 0 ) {
+                return -max;
+            }
+            return target;
         },
 
         // 改变方向
-        changeDir: function (dir) {
-            
-            if(dir != this.dir) {
-                this.dir = dir;
-                this.loadStyle();
-            }
-
+        changeDir: function (dir) {            
+            this.dir = dir;
+            this.loadStyle();
             this.doScroll();
         },
 
         // 开始滚动
         startScroll: function () {
             var _this = this;
-
-            this.stop();
             this.timer = setInterval(function () {
                 _this.doScroll();
             }, _this.interval);
