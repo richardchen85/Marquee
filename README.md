@@ -1,7 +1,7 @@
 Marquee
 ================
 
-原生JavaScript实现任意方向的无缝滚动
+原生JavaScript实现任意方向的无缝滚动，兼容FF, chrome, IE6+
 
 使用方法
 ================
