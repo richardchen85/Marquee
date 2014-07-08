@@ -12,7 +12,7 @@
  *   autoPlay：是否自动滚动，默认为true
  *   hoverPause：是否在鼠标滑过时暂停滚动，默认为true
  */
-var Marquee = function(opt) {
+var Marquee = function (opt) {
     // 要滚动的元素
     this.elem = null;
 
@@ -50,7 +50,7 @@ Marquee.prototype = {
 
     constructor: Marquee,
 
-    init: function(opt) {
+    init: function (opt) {
 
         this.extend(opt, this);
 
@@ -68,33 +68,33 @@ Marquee.prototype = {
     },
 
     // 初始化滚动元素的样式
-    loadStyle: function() {
+    loadStyle: function () {
         var childrens = this.elem.children;
 
         // 如果是左右滚动就给滚动元素加上宽度
-        if(this.dir == 'left' || this.dir == 'right') {
+        if (this.dir == 'left' || this.dir == 'right') {
             this.elem.style.width = childrens[0].offsetWidth * childrens.length + 'px';
         }
 
-        if(this.dir == 'right' && this.elem.offsetLeft == 0) {
+        if (this.dir == 'right' && this.elem.offsetLeft == 0) {
             this.elem.style.left = -this.elem.offsetWidth / 2 + 'px';
         }
 
-        if(this.dir == 'left' && this.elem.offsetLeft == -this.elem.offsetWidth / 2) {
+        if (this.dir == 'left' && this.elem.offsetLeft == -this.elem.offsetWidth / 2) {
             this.elem.style.left = 0;
         }
 
-        if(this.dir == 'down' && this.elem.offsetTop == 0) {
+        if (this.dir == 'down' && this.elem.offsetTop == 0) {
             this.elem.style.top = -this.elem.offsetHeight / 2 + 'px';
         } 
 
-        if(this.dir == 'up' && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
+        if (this.dir == 'up' && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
             this.elem.style.top = 0;
         }
     },
 
     // 绑定控制元素的事件
-    bindEvents: function() {
+    bindEvents: function () {
         var _this = this;
         
         // 鼠标移入父级元素时暂停
@@ -119,12 +119,13 @@ Marquee.prototype = {
     doScroll: function () {
         var _this = this, style, offset, target, step, elemSize;
 
-        if( this.dir == 'left' || this.dir == 'right' ) {
+        if ( this.dir == 'left' || this.dir == 'right' ) {
             // element.style[ 'left' | 'top' ]
             style = 'left';
             offset = 'offsetLeft';
             elemSize = this.elem.offsetWidth / 2;
-        } else {
+        }
+        else {
             // element[ offset[Left|Top] ];
             style = 'top';
             offset = 'offsetTop';
@@ -135,14 +136,15 @@ Marquee.prototype = {
 
         if (this.stepInterval == 0) {
             // 滚动效果执行时间为0时，进入无缝滚动模式
-            if(elemSize - Math.abs(this.elem[offset]) < Math.abs(step)) {
+            if (elemSize - Math.abs(this.elem[offset]) < Math.abs(step)) {
                 step = step / Math.abs(step) * (elemSize - Math.abs(this.elem[offset]));
             }
             target = this.elem[offset] + step;
             target = this.fixTarget(step, this.elem[offset] + step, elemSize);
             this.elem.style[style] = target + "px";
 
-        } else {
+        }
+        else {
 
             if (this.timerStep != null) return; 
 
@@ -160,11 +162,11 @@ Marquee.prototype = {
                 _this.elem.style[style] = target + "px";
 
                 step -= seed;
-                if(step == 0 ) {
+                if (step == 0 ) {
                     clearInterval(_this.timerStep);
                     _this.timerStep = null;
 
-                    if( _this.autoPlay && !_this.pausing ) {
+                    if ( _this.autoPlay && !_this.pausing ) {
                         _this.startScroll();
                     }
                 }
@@ -175,12 +177,12 @@ Marquee.prototype = {
     // 修正超出边界的滚动
     fixTarget: function (dir, target, max) {
         // left or up, 当元素offset=最大滚动值时将offset变为0
-        if( dir < 0 && Math.abs(target) >= max ) {
+        if ( dir < 0 && Math.abs(target) >= max ) {
             return 0;
         }
 
         // right or down，当元素offset=0时将offset变为最大滚动值
-        if( dir > 0 && target >= 0 ) {
+        if ( dir > 0 && target >= 0 ) {
             return -max;
         }
         return target;
@@ -201,8 +203,8 @@ Marquee.prototype = {
         }, _this.interval);
     },
 
-    extend: function(opt, target) {
-        for(name in opt) {
+    extend: function (opt, target) {
+        for (name in opt) {
             target[name] = opt[name];
         }
     },
