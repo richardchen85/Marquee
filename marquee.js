@@ -55,7 +55,7 @@ Marquee.prototype = {
         this.extend(opt, this);
 
         // 如果元素不存在则直接返回
-        if(!this.elem) return false;
+        if (!this.elem) return false;
 
         // 复制滚动元素内容并填充
         this.elem.innerHTML += this.elem.innerHTML;
@@ -86,7 +86,7 @@ Marquee.prototype = {
 
         if (this.dir == 'down' && this.elem.offsetTop == 0) {
             this.elem.style.top = -this.elem.offsetHeight / 2 + 'px';
-        } 
+        }
 
         if (this.dir == 'up' && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
             this.elem.style.top = 0;
@@ -96,7 +96,7 @@ Marquee.prototype = {
     // 绑定控制元素的事件
     bindEvents: function () {
         var _this = this;
-        
+
         // 鼠标移入父级元素时暂停
         this.bind(this.elem.parentNode, "mouseover", function () {
             _this.stop();
@@ -117,15 +117,15 @@ Marquee.prototype = {
 
     // 执行滚动效果
     doScroll: function () {
-        var _this = this, style, offset, target, step, elemSize;
+        var _this = this,
+            style, offset, target, step, elemSize;
 
-        if ( this.dir == 'left' || this.dir == 'right' ) {
+        if (this.dir == 'left' || this.dir == 'right') {
             // element.style[ 'left' | 'top' ]
             style = 'left';
             offset = 'offsetLeft';
             elemSize = this.elem.offsetWidth / 2;
-        }
-        else {
+        } else {
             // element[ offset[Left|Top] ];
             style = 'top';
             offset = 'offsetTop';
@@ -143,10 +143,9 @@ Marquee.prototype = {
             target = this.fixTarget(step, this.elem[offset] + step, elemSize);
             this.elem.style[style] = target + "px";
 
-        }
-        else {
+        } else {
 
-            if (this.timerStep != null) return; 
+            if (this.timerStep != null) return;
 
             //先停止掉this.timer，在滚动执行完过后再开启
             this.stop();
@@ -162,11 +161,11 @@ Marquee.prototype = {
                 _this.elem.style[style] = target + "px";
 
                 step -= seed;
-                if (step == 0 ) {
+                if (step == 0) {
                     clearInterval(_this.timerStep);
                     _this.timerStep = null;
 
-                    if ( _this.autoPlay && !_this.pausing ) {
+                    if (_this.autoPlay && !_this.pausing) {
                         _this.startScroll();
                     }
                 }
@@ -177,19 +176,19 @@ Marquee.prototype = {
     // 修正超出边界的滚动
     fixTarget: function (dir, target, max) {
         // left or up, 当元素offset=最大滚动值时将offset变为0
-        if ( dir < 0 && Math.abs(target) >= max ) {
+        if (dir < 0 && Math.abs(target) >= max) {
             return 0;
         }
 
         // right or down，当元素offset=0时将offset变为最大滚动值
-        if ( dir > 0 && target >= 0 ) {
+        if (dir > 0 && target >= 0) {
             return -max;
         }
         return target;
     },
 
     // 改变方向
-    changeDir: function (dir) {            
+    changeDir: function (dir) {
         this.dir = dir;
         this.loadStyle();
         this.doScroll();
@@ -213,11 +212,9 @@ Marquee.prototype = {
     bind: function (element, type, handler) {
         if (element.addEventListener) {
             element.addEventListener(type, handler, false);
-        }
-        else if (element.attachEvent) {
+        } else if (element.attachEvent) {
             element.attachEvent("on" + type, handler);
-        }
-        else {
+        } else {
             element["on" + type] = hanlder;
         }
     }
