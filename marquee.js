@@ -5,9 +5,9 @@
  * @version 1.0
  * @参数 opt{} 可选值
  *   elem：要滚动的元素
- *   step：每次滚动的步长(px)
- *   stepInterval：滚动效果执行时间(ms)
- *   interval：每次滚动间隔时间(ms)
+ *   step：每次滚动的步长(px)，默认为0
+ *   stepInterval：滚动效果执行时间(ms)，默认为400
+ *   interval：每次滚动间隔时间(ms)， 默认为3000
  *   dir：滚动方向，up、down、left、right，默认为"left"
  *   autoPlay：是否自动滚动，默认为true
  *   hoverPause：是否在鼠标滑过时暂停滚动，默认为true
@@ -72,23 +72,27 @@ Marquee.prototype = {
         var childrens = this.elem.children;
 
         // 如果是左右滚动就给滚动元素加上宽度
-        if (this.dir == 'left' || this.dir == 'right') {
-            this.elem.style.width = childrens[0].offsetWidth * childrens.length + 'px';
+        if (this.dir == "left" || this.dir == "right") {
+            this.elem.style.width = childrens[0].offsetWidth * childrens.length + "px";
         }
 
-        if (this.dir == 'right' && this.elem.offsetLeft == 0) {
-            this.elem.style.left = -this.elem.offsetWidth / 2 + 'px';
+        // 如果是向右滚动，初始时将滚动元素的left设置为负的自身宽度的一半
+        if (this.dir == "right" && this.elem.offsetLeft == 0) {
+            this.elem.style.left = -this.elem.offsetWidth / 2 + "px";
         }
 
-        if (this.dir == 'left' && this.elem.offsetLeft == -this.elem.offsetWidth / 2) {
+        // 如果是向左滚动，初始时将滚动元素的left设置为0
+        if (this.dir == "left" && this.elem.offsetLeft == -this.elem.offsetWidth / 2) {
             this.elem.style.left = 0;
         }
 
-        if (this.dir == 'down' && this.elem.offsetTop == 0) {
-            this.elem.style.top = -this.elem.offsetHeight / 2 + 'px';
+        // 如果是向下滚动，初始时将滚动元素的top设置为负的自向高度的一半
+        if (this.dir == "down" && this.elem.offsetTop == 0) {
+            this.elem.style.top = -this.elem.offsetHeight / 2 + "px";
         }
 
-        if (this.dir == 'up' && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
+        // 如果是向上滚动，初始时将滚动元素的top设置为0
+        if (this.dir == "up" && this.elem.offsetTop == -this.elem.offsetHeight / 2) {
             this.elem.style.top = 0;
         }
     },
@@ -120,19 +124,19 @@ Marquee.prototype = {
         var _this = this,
             style, offset, target, step, elemSize;
 
-        if (this.dir == 'left' || this.dir == 'right') {
-            // element.style[ 'left' | 'top' ]
-            style = 'left';
-            offset = 'offsetLeft';
+        if (this.dir == "left" || this.dir == "right") {
+            // element.style[ "left" | "top" ]
+            style = "left";
+            offset = "offsetLeft";
             elemSize = this.elem.offsetWidth / 2;
         } else {
             // element[ offset[Left|Top] ];
-            style = 'top';
-            offset = 'offsetTop';
+            style = "top";
+            offset = "offsetTop";
             elemSize = this.elem.offsetHeight / 2;
         }
 
-        step = (this.dir == 'left' || this.dir == 'up') ? -this.step : this.step;
+        step = (this.dir == "left" || this.dir == "up") ? -this.step : this.step;
 
         if (this.stepInterval == 0) {
             // 滚动效果执行时间为0时，进入无缝滚动模式
@@ -151,7 +155,7 @@ Marquee.prototype = {
             this.stop();
 
             // 将step按stepInterval分割
-            var seed = 50 / _this.stepInterval * step;
+            var seed = 30 / _this.stepInterval * step;
             seed = seed < 0 ? Math.ceil(seed) : Math.floor(seed);
 
             this.timerStep = setInterval(function () {
