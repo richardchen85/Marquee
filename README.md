@@ -6,14 +6,15 @@ Marquee
 使用方法
 ================
 
-new Marquee({
+var marquee = new Marquee({
     elem: document.getElementById("demo1"),
     autoPlay: true,
     step:2,
     stepInterval: 0,
     interval: 50,
     dir: 'left'
-});
+});<br>
+可以使用marquee的changeDir方法改变滚动方向，实现上一张下一张
 
 参数
 ================
